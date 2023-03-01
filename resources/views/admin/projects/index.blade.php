@@ -20,7 +20,7 @@
               <th>Slug</th>
             </thead>
             <tbody>
-              @foreach($projects as $project)
+              @forelse($projects as $project)
                 <tr>
                   <td>{{$project->title}}</td>
                   <td>{{$project->slug}}</td>
@@ -40,7 +40,11 @@
                     </form>
                   </td>
                 </tr>
-              @endforeach
+              @empty
+                <div class="alert alert-warning">
+                    Non hai progetti, aggiungi un nuovo progetto da <a class="text-warning text-decoration-none" href="{{route('admin.projects.create')}}">qui</a>
+                </div>
+              @endforelse
             </tbody>
           </table>
       </div>
