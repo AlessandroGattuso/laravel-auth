@@ -15,9 +15,10 @@
       @endif
       <div class="col-12">
           <table class="table table-striped">
-            <thead>
+            <thead class="table-dark">
               <th>Titolo</th>
               <th>Slug</th>
+              <th></th>
             </thead>
             <tbody>
               @forelse($projects as $project)
