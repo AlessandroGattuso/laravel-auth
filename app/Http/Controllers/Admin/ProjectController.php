@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
@@ -43,10 +45,11 @@ class ProjectController extends Controller
 
         $data['slug'] = Project::generateSlug($request->title);
 
-        $newProject = new Project();
-        $newProject->fill($data);
+        $newProject = Project::create($data);
+        // $newProject = new Project();
+        // $newProject->fill($data);
 
-        $newProject->save();
+        // $newProject->save();
 
         return redirect()->route('admin.projects.index')->with('message', 'il progetto è stato creato');
     }
@@ -59,7 +62,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -70,7 +73,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -82,7 +85,13 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $data = $request->validated();
+
+        $data['slug'] = Project::generateSlug($request->title);
+
+        $project->update($data);
+
+        return redirect()->route('admin.projects.index')->with('message', 'Modifica al progetto eseguita');
     }
 
     /**
@@ -93,6 +102,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('admin.projects.index')->with('message','Il progetto è stato eliminato correttamente');
     }
 }
