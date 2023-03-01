@@ -34,7 +34,7 @@
                     <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->slug)}}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-danger btn-sm btn-square">
+                      <button type="submit" class="btn btn-danger btn-sm btn-square confirm-delete-button" title="Cancella il project">
                         <i class="fas fa-trash"></i>
                       </button>
                     </form>
@@ -50,4 +50,5 @@
       </div>
     </div>
    </div>
+   @include('admin.partials.modals')
 @endsection
